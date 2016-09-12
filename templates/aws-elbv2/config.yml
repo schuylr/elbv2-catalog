@@ -1,0 +1,5 @@
+name: ELB Application Load Balancer
+description: |
+  External LB service powered by AWS Elastic Load Balancing
+version: v0.2.0-rancher1
+category: Rancher Services

@@ -1,0 +1,48 @@
+.catalog:
+  name: ELB Application Load Balancer
+  version: "v0.2.0-rancher1"
+  description: "External LB service powered by AWS Elastic Load Balancing"
+  minimum_rancher_version: v1.1.0
+  questions:
+    - variable: "ELBV2_AWS_ACCESS_KEY"
+      label: "AWS Access Key ID"
+      description: "Access key ID for your AWS account"
+      type: "string"
+      required: false
+    - variable: "ELBV2_AWS_SECRET_KEY"
+      label: "AWS Secret Access Key"
+      description: "Secret access key for your AWS account"
+      type: "string"
+      required: false
+    - variable: "ELBV2_AWS_REGION"
+      label: "AWS Region (Optional)"
+      description: "Region in which load balancers should be created in. Defaults to the region of the instance this service is running on."
+      type: "string"
+      required: false
+    - variable: "ELBV2_AWS_VPCID"
+      label: "AWS VPC ID (Optional)"
+      description: "VPC in which load balancers should be created in. Defaults to the VPC of the instance this service is running on."
+      type: "string"
+      required: false
+    - variable: "ELBV2_USE_PRIVATE_IP"
+      label: "EC2 Private IP Lookup"
+      description: "If your EC2 instances are registered in Rancher using their private IP addresses, then you must set this to true."
+      required: true
+      type: "boolean"
+      default: false
+    - variable: "ELBV2_IDLE_TIMEOUT"
+      label: "Connection Idle Timeout (Optional)"
+      description: "Custom connection idle timeout in seconds for any load balancer created by this service. By default, ELB sets this to 60 seconds."
+      required: false
+      type: "int"
+      min: 1
+      max: 3600
+
+awselbv2:
+  health_check:
+    port: 1000
+    interval: 5000
+    unhealthy_threshold: 2
+    request_line: GET / HTTP/1.0
+    healthy_threshold: 2
+    response_timeout: 2000
