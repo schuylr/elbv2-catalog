@@ -30,13 +30,32 @@
       required: true
       type: "boolean"
       default: false
-    - variable: "ELBV2_IDLE_TIMEOUT"
-      label: "Connection Idle Timeout (Optional)"
-      description: "Custom connection idle timeout in seconds for any load balancer created by this service. By default, ELB sets this to 60 seconds."
-      required: false
+    - variable: "ELBV2_CONNECTION_TIMEOUT"
+      label: "Connection Idle Timeout"
+      description: "The connection idle timeout in seconds for the load balancers. Valid range: 1-3600."
       type: "int"
       min: 1
       max: 3600
+      default: 60
+      required: true
+    - variable: "ELBV2_ACCESS_LOGS_ENABLED"
+      label: "Enable Access Logs"
+      description: "Set this to 'true' to enable access logging for the load balancers. Logs are stored in the specified S3 bucket."
+      required: true
+      type: "boolean"
+      default: false
+    - variable: "ELBV2_ACCESS_LOGS_BUCKET"
+      label: "Access Logs S3 Bucket"
+      description: |
+        The name of the S3 bucket to store the access logs in.
+        It must be located in the same region as the load balancer and must have a bucket policy granting write permissions to ELB.
+      type: "string"
+      required: false
+    - variable: "ELBV2_ACCESS_LOGS_PREFIX"
+      label: "Access Logs S3 Bucket Prefix"
+      description: "An optional bucket prefix. By default the logs are stored in the root of the S3 bucket."
+      type: "string"
+      required: false
 
 awselbv2:
   health_check:

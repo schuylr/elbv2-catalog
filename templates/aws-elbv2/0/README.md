@@ -5,13 +5,14 @@ AWS ELBv2 (Application Load Balancer) Provider
 The new ELB Application Load Balancer option ([launched by AWS in August 2016](https://aws.amazon.com/blogs/aws/new-aws-application-load-balancer/)) runs at Layer 7, has support for content-based routing and natively supports the WebSocket and HTTP/2 protocols.
 
 ### About this provider
-This provider dynamically creates and manages Application Load Balancers on AWS to load balance traffic for Rancher services that have an exposed port and the label `io.rancher.service.external_lb.endpoint`.
+This provider dynamically creates and manages Application Load Balancers on AWS to load balance traffic for Rancher services that have an exposed port
+and the label `io.rancher.service.external_lb.endpoint`.
 A single Application Load Balancer can be used to load balance traffic for multiple Rancher services by employing path-based routing rules.
 The load balancer's behavior can be configured using a set of optional labels for the service(s) that are using it.
 
 ### Usage notes
 * ELB load balancers can only forward traffic to EC2 instances running in the same VPC as the load balancer. Make sure that the services you are load balancing are scaled across hosts in a single VPC.
-* To check the health of the application backends Elastic Load Balancing issues HTTP(S) GET requests on the target's port and path "/". Make sure your services respond with an HTTP status code 200 to these requests.
+* To check the health of the backends Elastic Load Balancing issues HTTP GET requests on the target port and path "/". Make sure your services respond with an HTTP status code 200 to these requests. Health checks do not support WebSocket protocol. A custom service port can be used for health checks by specifying it with the `io.rancher.service.external_lb.health_check_port` label.
 
 Configuration Labels
 ==========
@@ -50,8 +51,13 @@ Configuration Labels
 
 * `io.rancher.service.external_lb.backend_stickiness`
 
-	Set this to to `true` to enable sticky sessions for this service.    
+	Set this to `true` to enable sticky sessions for this service.    
 	Default: `false`
+
+* `io.rancher.service.external_lb.health_check_port`
+
+	A custom port ELB should use when performing health checks on the targets of this service. The default is to use the traffic backend port.
+	Default: `<Ports[0]`
 
 
 Note: The only label required to create a fully working ELB Application Load Balancer for a service in Rancher is `io.rancher.service.external_lb.endpoint`. The other labels are optional.

@@ -1,5 +1,6 @@
 awselbv2:
-  image: janeczku/external-dns-adv:latest-dev
+  image: janeczku/external-lb-adv:dev
+  #command: -provider=elbv2 -debug
   expose: 
    - 1000
   environment:
@@ -8,7 +9,10 @@ awselbv2:
     ELBV2_AWS_REGION: ${ELBV2_AWS_REGION}
     ELBV2_AWS_VPCID: ${ELBV2_AWS_VPCID}
     ELBV2_USE_PRIVATE_IP: ${ELBV2_USE_PRIVATE_IP}
-    ELBV2_IDLE_TIMEOUT: ${ELBV2_IDLE_TIMEOUT}
+    ELBV2_CONNECTION_TIMEOUT: ${ELBV2_CONNECTION_TIMEOUT}
+    ELBV2_ACCESS_LOGS_ENABLED: ${ELBV2_ACCESS_LOGS_ENABLED}
+    ELBV2_ACCESS_LOGS_BUCKET: ${ELBV2_ACCESS_LOGS_BUCKET}
+    ELBV2_ACCESS_LOGS_PREFIX: ${ELBV2_ACCESS_LOGS_PREFIX}
   labels:
     io.rancher.container.create_agent: "true"
     io.rancher.container.agent.role: "external-dns"
