@@ -1,7 +1,7 @@
 awselbv2:
-  image: janeczku/external-lb-adv:dev
+  image: schuylr/external-lb-adv:latest
   #command: -provider=elbv2 -debug
-  expose: 
+  expose:
    - 1000
   environment:
     ELBV2_AWS_ACCESS_KEY: ${ELBV2_AWS_ACCESS_KEY}

@@ -21,14 +21,18 @@ Configuration Labels
 
 	The name of the ELBv2 load balancer to create and manage. The name must not be in use by an existing ELBv2 in your AWS account. It must consist of only alphanumeric characters or dashes and not be longer than 32 characters.
 
+* `io.rancher.service.external_lb.region`
+
+	The region that the service belongs to, so the correct ELBv2 load balancer manager will handle it. There must be a manager existing in the same region that is specified.
+
 * `io.rancher.service.external_lb.frontend_protocol`
 
-	The protocol to use for the listener. Valid values: "HTTP", "HTTPS".    
+	The protocol to use for the listener. Valid values: "HTTP", "HTTPS".
 	Default: `HTTP`
 
 * `io.rancher.service.external_lb.frontend_port`
 
-	The port to use for the listener.    
+	The port to use for the listener.
 	Default: `80`
 
 * `io.rancher.service.external_lb.frontend_ssl_cert`
@@ -41,17 +45,17 @@ Configuration Labels
 
 * `io.rancher.service.external_lb.backend_protocol`
 
-	The protocol to use when forwarding traffic to this service. Valid values: "HTTP", "HTTPS".    
+	The protocol to use when forwarding traffic to this service. Valid values: "HTTP", "HTTPS".
 	Default: `HTTP`
 
 * `io.rancher.service.external_lb.backend_port`
 
-	The port to use when forwarding traffic to this service. Defaults to the first exposed port of the service.    
+	The port to use when forwarding traffic to this service. Defaults to the first exposed port of the service.
 	Default: `<Ports[0]>`
 
 * `io.rancher.service.external_lb.backend_stickiness`
 
-	Set this to `true` to enable sticky sessions for this service.    
+	Set this to `true` to enable sticky sessions for this service.
 	Default: `false`
 
 * `io.rancher.service.external_lb.health_check_port`
